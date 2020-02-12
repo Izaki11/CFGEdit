@@ -1,0 +1,126 @@
+﻿<Window x:Class="CfgEdit.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CfgEdit"
+        mc:Ignorable="d"
+        Title="CfgEdit" Width="800" Height="625">
+
+    <DockPanel Background="LightGray">
+            
+            <Menu DockPanel.Dock="Top" Background="White">
+                <MenuItem Header="File" >
+                    <MenuItem x:Name="menuNewButton" Header="New" Click="MenuNewButton_Click" />
+                    <MenuItem x:Name="menuOpenButton" Header="Open" Click="MenuOpenButton_Click" />
+                    <MenuItem x:Name="menuSaveButton" Header="Save As" Click="MenuSaveButton_Click" />
+                    <Separator />
+                    <MenuItem x:Name="menuQuitButton" Header="Quit" Click="MenuQuitButton_Click" />
+                </MenuItem>
+            <MenuItem Header="Help" >
+                <MenuItem x:Name="menuAboutButton" Header="About" Click="MenuAboutButton_Click" />
+            </MenuItem>
+            </Menu>
+        <StackPanel DockPanel.Dock="top" Margin="5" MinWidth="400" MaxWidth="1200" >
+
+            <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="Game:" FontWeight="Bold" />
+                    <TextBlock Grid.Column="1" Text="Module:" FontWeight="Bold" />
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Game Selection -->
+                    <ComboBox x:Name="gameComboBox" SelectionChanged="GameComboBox_SelectionChanged" Grid.Column="0" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding m_name}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button x:Name="newGameButton" Click="NewGameButton_Click" Grid.Column="1" Margin="5 0" Content="New" />
+                    <Button x:Name="deleteGameButton" Click="DeleteGameButton_Click" Grid.Column="2" Margin="5 0" Content="Delete" />
+                    
+                    <!-- Module File Selection -->
+                    <ComboBox x:Name="moduleComboBox" SelectionChanged="ModuleComboBox_SelectionChanged" Grid.Column="4" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding m_name}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+
+                </Grid>
+
+                <Rectangle Margin="0 20" Stroke="Gray" />
+
+                <!-- Command Interface -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Parameter -->
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Parameter:" FontWeight="Bold" />
+                    <ComboBox x:Name="parameterComboBox" Grid.Row="1" Grid.Column="0">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="parameterComboBoxItem"
+                                           ToolTip="{Binding m_toolTipFormatted}"
+                                           ToolTipService.InitialShowDelay="500"
+                                           ToolTipService.ShowDuration="15000"
+                                           PreviewMouseLeftButtonUp="ParameterComboBoxItem_PreviewMouseLeftButtonUp" 
+                                           PreviewMouseRightButtonUp="parameterComboBoxItem_PreviewMouseRightButtonUp"
+                                           Text="{Binding m_name}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <!-- Value -->
+                    <TextBlock Grid.Row="0" Grid.Column="2" Text="Value:" FontWeight="Bold" />
+                    <TextBox x:Name="valueTextBox" Grid.Row="1" Grid.Column="2" />
+                
+                    <!-- Add & Clear Buttons -->
+                    <StackPanel Grid.Column="2" Grid.Row="2" Margin="0 5" Orientation="Horizontal">
+                        <Button x:Name="valueAddButton" Click="ValueAddButton_Click" Margin="0 0 5 0" Width="50" Content="Add" />
+                        <Button x:Name="valueClearButton" Click="ValueClearButton_Click" Margin="5 0" Width="50" Content="Clear" />
+                    </StackPanel>
+
+                </Grid>
+
+            </StackPanel>
+
+            <!-- Raw Configuration File View -->
+            <DockPanel Grid.Row="1" Margin="5 20 5 5" MinWidth="400" MaxWidth="1200" VerticalAlignment="Stretch" >
+                <TextBlock DockPanel.Dock="Top" Text="Raw View:" FontWeight="Bold" HorizontalAlignment="Center" />
+                <ScrollViewer>
+                     <TextBox x:Name="rawTextBox" MinHeight="200" AcceptsReturn="True" />
+                 </ScrollViewer>
+            </DockPanel>
+
+        
+    </DockPanel>
+</Window>
