@@ -1,5 +1,6 @@
 # CFGEdit
-v1.0
+v1.0  
+
 CFGEdit creates, edits, and manages your game config files
 
 # Getting Started
